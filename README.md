@@ -14,8 +14,9 @@ Update the file’s last modified date to now:
 <pre><code>touch important-documents/*</pre></code>
 
 
-Given that the script takes two arguments as input, you can run the script using the following command. This this will create a backup file called backup-[CURRENT_TIMESTAMP].tar.gz in your current directory.:
+Given that the script takes two arguments as input, you can use your CLI to navigate to the directory which contains both the backup.sh file and the important-documents directory, then run the script using the following command:
 <pre><code>./backup.sh important-documents .</pre></code>
+The previous line of code will create a backup file called backup-[CURRENT_TIMESTAMP].tar.gz in your current directory.
 
 
 
@@ -25,5 +26,5 @@ You can view the current backup schedule using the following command:
 <pre><code>crontab -l</pre></code>
 
 
-You can edit the backup schedule using the following command:
+If you wish to change the time iterval or frequency of backups, you can edit the backup schedule using the following command:
 <pre><code>crontab -e</pre></code>

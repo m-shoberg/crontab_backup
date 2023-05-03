@@ -15,55 +15,55 @@ then
   exit
 fi
 
-# [TASK 1]
+# Set two variables equal to the values of the first and second command line arguments
 targetDirectory=$1
 destinationDirectory=$2
 
-# [TASK 2]
+# Display the values of the two command line arguments in the terminal
 echo "Target directory: $targetDirectory"
 echo "Backup destination: $destinationDirectory"
 
-# [TASK 3] timestamp represented in seconds
+# timestamp represented in seconds
 currentTS=$(date +%s)
 
-# [TASK 4] set backupFilename var that populated timestand in seconds
+# set backupFilename var that populated timestamp in seconds
 backupFileName="backup-[$currentTS].tar.gz"
 
-# We're going to:
-  # 1: Go into the target directory
-  # 2: Create the backup file
-  # 3: Move the backup file to the destination directory
+'''
+1: Go into the target directory
+2: Create the backup file
+3: Move the backup file to the destination directory
+'''
 
-# To make things easier, we will define some useful variables...
-
-# [TASK 5]
 origAbsPath=$(pwd)
 
-# [TASK 6]
 cd $destinationDirectory
 destAbsPath=$(pwd)
 
-# [TASK 7]
+# Change directories from the current working directory to the target directory
 cd origAbsPath
 cd targetDirectory
 
-# [TASK 8]
+# Define numerical variable called as the timestamp (in seconds) 24 hours prior to the current timestamp --> currentTS
 yesterdayTS=$(($currentTS - 24 * 60 * 60))
 
 declare -a toBackup
 
-for file in $(ls -a) # [TASK 9]
+'''
+1. loop iterates through files in current directory to see if $file has been updated within the last 24 hours
+2. if $file date in seconds is greater than yesterdayTS, then $file has been updated within the last 24 hours
+'''
+for file in $(ls -a) # return all files and directories in current folder
 do
-  # [TASK 10]
+  # checks for $file update within last 24 hours
   if ((`date -r $file +%s` > $yesterdayTS))
   then
-    # [TASK 11]
+    # add updated file to toBackup array
     toBackup+=($file)
   fi
 done
 
-# [TASK 12]
+# compress and archive the file names
 tar -czvf $backupFileName ${toBackup[@]}
-# [TASK 13]
+# move file to destination directory
 mv $backupFileName $destAbsPath
-# Congratulations! You completed the final project for this course!
